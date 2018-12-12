@@ -1,0 +1,24 @@
+#! /bin/bash
+clear
+#check for and download cifs-utils and p7zip packages without prompts
+echo "--> Downloading Required Packages"
+yum -y install cifs-utils p7zip
+#
+#make the mount directory
+echo "--> Creating Mount Directory /mnt/win"
+mkdir /mnt/win
+#
+#ask for address, user name, and password
+echo "Enter The Address"
+read varaddress
+echo "Enter The Username"
+read varname
+echo "Enter The Password"
+read -s varpass
+#
+#connect to and mount the windows share
+echo "Thank You. Please wait while the windows share is mounted"
+echo "--> Mounting the windows share..."
+mount.cifs //$varaddress /mnt/win -o username=$varname,password=$varpass,domain=POWERDNN,vers=3.0
+cd /mnt/win
+echo "--> Finished! Remember to navigate to /mnt/ when finished and run the umount win command"
